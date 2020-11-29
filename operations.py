@@ -59,14 +59,13 @@ class Operations :
 			return False 
 		return True 
 
-	def get_employee(total_employees) :
+	def get_employee() :
 		while True :
 			try :
 				employee_id = int(input("Enter Employee ID :")) 
 				return employee_id
 			except Exception as e:
 				print("Invalid Employee ID")
-				print(e)
 
 	def get_option() :
 		while True :

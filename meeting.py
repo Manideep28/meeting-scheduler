@@ -6,20 +6,39 @@ from hash import Generate_Hash
 from operations import Operations
 
 print('*********Welcome to FlyFin Meetings********** ')
-m = int(input("Enter Total number of meeting rooms :")) 
-n = int(input("Enter Total number of Employees :"))		
-print("Success Meeting rooms have been created") 
+
+while True :
+	try :
+		max_rooms = int(input("Enter total number of meeting rooms :")) 
+		if max_rooms <= 0 :
+			raise Exception("")
+		else :
+			break
+	except :
+		print("Invalid number of meeting rooms")
+
+while True :
+	try :
+		total_employees = int(input("Enter total number of employees :"))	
+		if total_employees <= 0 :
+			raise Exception("")
+		else :
+			break
+	except :
+		print("Invalid number of Employees")
+
+print("Success! Meeting room(s) has/have been created") 
 
 #dictionary (map) to store intervals with roomid 
 #key = datetime and value = intevals with roomid 
-d = defaultdict(list)
+date_intervals = defaultdict(list)
 #meetings has empid as key ,meetingid as inner dict (map) key, value as interval with date_time
 meetings = defaultdict(lambda : defaultdict(list)) 
 
 
 def insert( employee_id, newInterval, date_time) : 
 		"""Inserts a new interval and assigns room id"""
-		intervals = d[date_time] 
+		intervals = date_intervals[date_time] 
 		unavailable_rooms = set() 
 		not_overlapped = False 
 		stack = [] 
@@ -29,10 +48,10 @@ def insert( employee_id, newInterval, date_time) :
 		#check the overlapping intervals with the newInterval 
 		new_room_id = 1 
 		while i < len(intervals) : 
-			s,e,room_id = intervals[i] 
+			start,end,room_id = intervals[i] 
 			
-			if newInterval[0] < e : 
-				if newInterval[1] < s : 
+			if newInterval[0] < end : 
+				if newInterval[1] < start : 
 					not_overlapped = True 
 					break 
 				unavailable_rooms.add(room_id) 
@@ -40,20 +59,20 @@ def insert( employee_id, newInterval, date_time) :
 			i += 1 
 
 		#Assign room available at this interval 
-		if not_overlapped :
+		if not_overlapped and len(unavailable_rooms) == 0:
 			new_room_id = 1 
-		elif len(unavailable_rooms) == m :
+		elif len(unavailable_rooms) == max_rooms :
 			print("No Rooms available at this Time Slot ") 
 			return False
 		else :
-			new_room_id = Operations.get_room(unavailable_rooms,m)
+			new_room_id = Operations.get_room(unavailable_rooms,max_rooms)
 
 		newInterval[2] = new_room_id	
 		stack += intervals[:i]
 		stack += newInterval,
 		stack += intervals[i:]
 		
-		d[date_time] = stack 
+		date_intervals[date_time] = stack 
 
 		#generate new meeting id 
 		meeting_id = Generate_Hash.generate_id(employee_id) 
@@ -76,10 +95,10 @@ def insert( employee_id, newInterval, date_time) :
 
 def book(employee_id,date_time,start_time,end_time) : 
 	"""Books a meeting room for a given time interval"""
-	if date_time not in d : 
+	if date_time not in date_intervals : 
 		room_id = 1 
 		newInterval = [start_time,end_time,room_id]
-		d[date_time].append(newInterval) 
+		date_intervals[date_time].append(newInterval) 
 		
 		meeting_id = Generate_Hash.generate_id(employee_id) 
 		interval_date = newInterval + [date_time]
@@ -96,23 +115,24 @@ def book(employee_id,date_time,start_time,end_time) :
 		print('you have exceeded the max limit of bookings at a time')
 		return 
 
+        #initially 0 because no room has been allocated yet
 	interval = [start_time,end_time,0] 
 	insert( employee_id, interval, date_time) 
 
 
-def Cancel(employee_id, meeting_id) :
+def cancel(employee_id, meeting_id) :
 	"""Cancels the scheduled Meeting of an employee"""
 	if employee_id not in meetings :
 		print("You dont have any meetings scheduled yet !")
 		return
 	if meeting_id not in meetings[employee_id] :
-		print("you are not the organizer of this meeting") 
+		print("Sorry! You are not the organizer of this meeting") 
 		return 
 
 	#get the meeting of an employee to cancel 
 	start_time,end_time,room_id,date_time = meetings[employee_id][meeting_id][0]
 	interval = [start_time,end_time,room_id]
-	d[date_time].remove(interval)
+	date_intervals[date_time].remove(interval)
 
 	del meetings[employee_id][meeting_id] 
 
@@ -120,7 +140,7 @@ def Cancel(employee_id, meeting_id) :
 	if len(meetings[employee_id]) == 0 :
 		del meetings[employee_id]
 
-	print("Meeting with the following details have succesfully Cancelled ! ")
+	print("Meeting with the following details has been cancelled succesfully ! ")
 	print("Room ID :", room_id)
 	print("Meeting ID : ", meeting_id)
 	
@@ -134,10 +154,10 @@ def is_burden(employee_id,start_time,end_time,date_time) :
 		return False 
 	count = 0 
 	for meet_id in meetings[employee_id] :
-		for mst,met,rm_id,dt_time in meetings[employee_id][meet_id] :
+		for start,end,room_id,dt_time in meetings[employee_id][meet_id] :
 			#if dates were same and interval overlap add it to the count
 			if dt_time == date_time :
-				if Operations.is_interval_overlap(mst,met,start_time,end_time) :
+				if Operations.is_interval_overlap(start,end,start_time,end_time) :
 					count += 1 
 					#Employee cant handle more than 2 at a time so it's a burden 
 					if count == 2 :
@@ -155,7 +175,7 @@ while True :
 
 	option = Operations.get_option()
 	if option == 1 : 
-		employee_id = Operations.get_employee(n)
+		employee_id = Operations.get_employee()
 
 		date_time = Operations.get_date()
 		
@@ -181,10 +201,10 @@ while True :
 		book(employee_id,date_time,start_time,end_time) 
 
 	elif option == 2 :
-		employee_id = Operations.get_employee(n) 
+		employee_id = Operations.get_employee() 
 		meeting_id = input("Enter Meeting ID :")
 		
-		Cancel(employee_id, meeting_id) 
+		cancel(employee_id, meeting_id) 
 		
 	elif option == 3 :
 		exit() 
