@@ -39,14 +39,16 @@ class Operations :
 	def get_time(state) :
 		"""Gets time from the user"""
 		while True :
-
-			print('Enter ',state , end = "")
-			time = input(" time in 24 hours hh:mm Format :").format(state)
-			hh,mins = map(int,time.split(':'))
-			if hh < 0 or hh >= 24 or mins < 0 or mins >= 60 :
-				print("Invalid Time ")
-			else :	
-				return hh,mins
+			try :
+				print('Enter ',state , end = "")
+				time = input(" time in 24 hours hh:mm Format :").format(state)
+				hh,mins = map(int,time.split(':'))
+				if hh < 0 or hh >= 24 or mins < 0 or mins >= 60 :
+					print("Invalid Time ")
+				else :	
+					return hh,mins
+			except :
+				print("Invalid Time") 
 
 	def is_valid_time_frame(start_time,end_time) :
 		"""Checks if the duration is more than 3 hours"""
@@ -55,3 +57,12 @@ class Operations :
 			print("Invalid Time Frame - Cannot book a meeting of more than 3 hrs duration.")
 			return False 
 		return True 
+
+	def get_employee(total_employees) :
+		while True :
+			try :
+				employee_id = int(input("Enter Employee ID :")) 
+				return employee_id
+			except Exception as e:
+				print("Invalid Employee ID ")
+				print(e)

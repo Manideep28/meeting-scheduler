@@ -147,13 +147,14 @@ def is_burden(employee_id,start_time,end_time,date_time) :
 
 
 while True : 
+	print()
 	print("###Schedule a Meeting###")
 	print('1. Book a Meeting') 
 	print('2. Cancel a Meeting') 
 	print('3. Exit ')
 	option = int(input("Enter your input :")) 
 	if option == 1 : 
-		employee_id = int(input("Enter Employee ID :")) 
+		employee_id = Operations.get_employee(n)
 
 		date_time = Operations.get_date()
 		
@@ -177,10 +178,10 @@ while True :
 		book(employee_id,date_time,start_time,end_time) 
 
 	elif option == 2 :
-		employee_id = int(input("Enter Employee ID : "))
+		employee_id = Operations.get_employee(n) 
 		meeting_id = input("Enter Meeting ID :")
 		
-		Cancel(employee_id, meeting_id)
+		Cancel(employee_id, meeting_id) 
 	elif option == 3 :
 		exit()
 	else :
