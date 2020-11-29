@@ -64,5 +64,5 @@ class Operations :
 				employee_id = int(input("Enter Employee ID :")) 
 				return employee_id
 			except Exception as e:
-				print("Invalid Employee ID ")
+				print("Invalid Employee ID")
 				print(e)
