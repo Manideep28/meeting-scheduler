@@ -168,10 +168,12 @@ while True :
 			start_time = start_hh*60 + start_mins 
 			end_time = end_hh*60 + end_mins 
 			
+			#End time should be greater than start time 
 			if end_time - start_time <= 0 :
 				print('Invalid Time End time should be greater than start time')
 				continue
 
+			#check if the duration is less than 3 hours 
 			if Operations.is_valid_time_frame(start_time,end_time) :
 				break
 
@@ -183,6 +185,7 @@ while True :
 		meeting_id = input("Enter Meeting ID :")
 		
 		Cancel(employee_id, meeting_id) 
+		
 	elif option == 3 :
 		exit() 
 	else :
