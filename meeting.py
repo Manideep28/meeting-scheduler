@@ -152,7 +152,8 @@ while True :
 	print('1. Book a Meeting') 
 	print('2. Cancel a Meeting') 
 	print('3. Exit ')
-	option = int(input("Enter your input :")) 
+
+	option = Operations.get_option()
 	if option == 1 : 
 		employee_id = Operations.get_employee(n)
 
@@ -183,7 +184,7 @@ while True :
 		
 		Cancel(employee_id, meeting_id) 
 	elif option == 3 :
-		exit()
+		exit() 
 	else :
-		print('Invalid Input ')
+		print('Invalid Option')
 

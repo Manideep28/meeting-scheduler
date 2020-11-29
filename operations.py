@@ -6,7 +6,7 @@ class Operations :
 	def get_room(unavailable_rooms,max_rooms) :
 		"""Returns the Available room"""
 
-		for room in range(1,m+1) :
+		for room in range(1,max_rooms+1) :
 			if room not in unavailable_rooms :
 				return room 
 
@@ -66,3 +66,11 @@ class Operations :
 			except Exception as e:
 				print("Invalid Employee ID")
 				print(e)
+
+	def get_option() :
+		while True :
+			try :
+				option = int(input("Enter your input :")) 
+				return option
+			except :
+				print("Choose a valid option ")
