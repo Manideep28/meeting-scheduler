@@ -25,9 +25,9 @@ Here, Interval also consists of a date time  <br />
 # How to delete data upon cancellation ?
 Employee gives his ID and Meeting ID <br />
 so that based on these details we can remove from meetings. <br />
-while deleting we store the datetime and interval from meetings <br />
+While deleting we store the datetime and interval from meetings <br />
 
-And this date time is user to cancel the schedule from datetime <br />
+And this date time is used to cancel the schedule from datetime <br />
 
 # Features 
 book(employee_id, start_time, end_time) <br />
