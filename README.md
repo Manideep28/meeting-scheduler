@@ -31,18 +31,18 @@ And this date time is user to cancel the schedule from datetime
 
 # Features 
 book(employee_id, start_time, end_time)
-● if success, prints the id of the room and id of the meeting itself
+● if success, prints the id of the room and id of the meeting itself <br />
 ● If given time is beyond 1 month, prints 'Cannot book beyond 1 month from
-today'
+today'<br />
 ● If meeting duration is more than 3 hrs, prints 'Cannot book a meeting of more
-than 3 hrs duration'
+than 3 hrs duration'<br />
 ● if this employee has already 2 meetings scheduled at the same time, prints 'you
-have exceeded the max limit of bookings at a time'
-● Disable Past Dates : User cannot schedule meeting on previous days
-● if room not found, prints 'All rooms busy for the given time interval'
-
-● cancel(employee_id, meeting_id)
-● if success, prints 'success'
+have exceeded the max limit of bookings at a time'<br />
+● Disable Past Dates : User cannot schedule meeting on previous days<br />
+● if room not found, prints 'All rooms busy for the given time interval'<br />
+<br />
+● cancel(employee_id, meeting_id)<br />
+● if success, prints 'success'<br />
 ● if this employee id is not the organiser of this meeting id, prints 'you are not the
-organizer of this meeting'
-● If employee has no meetings prints 'You dont have any meetings scheduled yet ! '
+organizer of this meeting'<br />
+● If employee has no meetings prints 'You dont have any meetings scheduled yet ! '<br />
