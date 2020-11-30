@@ -13,3 +13,4 @@ class Generate_Hash :
 
 		return hash 
 
+

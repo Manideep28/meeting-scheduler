@@ -1,7 +1,7 @@
 import datetime 
 from collections import defaultdict
 
-from hash import Generate_Hash 
+from utils.hash import Generate_Hash 
 
 from utils.datetime_utils import datetimeUtils
 from utils.input_utils import inputUtils 
