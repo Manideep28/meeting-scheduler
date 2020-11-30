@@ -1,36 +1,36 @@
 # meeting-scheduler
 Meeting scheduler in python on command line 
 
-To Execute main file command : python main.py 
+To Execute main file command : python main.py <br />
 
-Main file will get the inputs of total number of rooms and employees 
-Also gets the option 
-1.Book a Meeting
-2.Cancel a Meeting
+Main file will get the inputs of total number of rooms and employees <br />
+Also gets the option <br />
+1.Book a Meeting <br />
+2.Cancel a Meeting <br />
 3.Exit 
 
 # How are we storing data ?
-The time is converted to minutes and we store the time intervals for each date. 
+The time is converted to minutes and we store the time intervals for each date. <br />
 so that we can room associated with that intervals which inturns optimises the time to 
-schedule and cancel a meeting (insert and delete and interval)
+schedule and cancel a meeting (insert and delete and interval) <br />
 
-The data stored in a map ( dictionary in python ) looks like 
-datetime[date] = [ Start Time,End Time,Room ID]
+The data stored in a map ( dictionary in python ) looks like <br />
+datetime[date] = [ Start Time,End Time,Room ID] <br />
 
-The unique meeting id is created and the employee to meeting ID is data is stored in a meetings dict 
+The unique meeting id is created and the employee to meeting ID is data is stored in a meetings dict <br />
 
-meetings[Employee ID][Meeting ID] = [Interval]
-Here, Interval also consists of a date time 
+meetings[Employee ID][Meeting ID] = [Interval] <br />
+Here, Interval also consists of a date time  <br />
 
 # How to delete data upon cancellation ?
-Employee gives his ID and Meeting ID 
-so that based on these details we can remove from meetings. 
-while deleting we store the datetime and interval from meetings 
+Employee gives his ID and Meeting ID <br />
+so that based on these details we can remove from meetings. <br />
+while deleting we store the datetime and interval from meetings <br />
 
-And this date time is user to cancel the schedule from datetime
+And this date time is user to cancel the schedule from datetime <br />
 
 # Features 
-book(employee_id, start_time, end_time)
+book(employee_id, start_time, end_time) <br />
 ● if success, prints the id of the room and id of the meeting itself <br />
 ● If given time is beyond 1 month, prints 'Cannot book beyond 1 month from
 today'<br />
