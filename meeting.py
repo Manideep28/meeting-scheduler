@@ -3,7 +3,9 @@ from collections import defaultdict
 
 from hash import Generate_Hash 
 
-from operations import Operations
+from utils.datetime_utils import datetimeUtils
+from utils.input_utils import inputUtils 
+from utils.operations_utils import operationsUtils 
 
 print('*********Welcome to FlyFin Meetings********** ')
 
@@ -65,7 +67,7 @@ def insert( employee_id, newInterval, date_time) :
 			print("No Rooms available at this Time Slot ") 
 			return False
 		else :
-			new_room_id = Operations.get_room(unavailable_rooms,max_rooms)
+			new_room_id = operationsUtils.get_room(unavailable_rooms,max_rooms)
 
 		newInterval[2] = new_room_id	
 		stack += intervals[:i]
@@ -157,7 +159,7 @@ def is_burden(employee_id,start_time,end_time,date_time) :
 		for start,end,room_id,dt_time in meetings[employee_id][meet_id] :
 			#if dates were same and interval overlap add it to the count
 			if dt_time == date_time :
-				if Operations.is_interval_overlap(start,end,start_time,end_time) :
+				if operationsUtils.is_interval_overlap(start,end,start_time,end_time) :
 					count += 1 
 					#Employee cant handle more than 2 at a time so it's a burden 
 					if count == 2 :
@@ -173,17 +175,17 @@ while True :
 	print('2. Cancel a Meeting') 
 	print('3. Exit ')
 
-	option = Operations.get_option()
+	option = inputUtils.get_option()
 	if option == 1 : 
-		employee_id = Operations.get_employee()
+		employee_id = inputUtils.get_employee()
 
-		date_time = Operations.get_date()
+		date_time = datetimeUtils.get_date()
 		
 		while True :
 			
-			start_hh,start_mins = Operations.get_time('start')
+			start_hh,start_mins = datetimeUtils.get_time('start')
 			
-			end_hh,end_mins = Operations.get_time('end')
+			end_hh,end_mins = datetimeUtils.get_time('end')
 
 			start_time = start_hh*60 + start_mins 
 			end_time = end_hh*60 + end_mins 
@@ -194,14 +196,14 @@ while True :
 				continue
 
 			#check if the duration is less than 3 hours 
-			if Operations.is_valid_time_frame(start_time,end_time) :
+			if datetimeUtils.is_valid_time_frame(start_time,end_time) :
 				break
 
 
 		book(employee_id,date_time,start_time,end_time) 
 
 	elif option == 2 :
-		employee_id = Operations.get_employee() 
+		employee_id = inputUtils.get_employee() 
 		meeting_id = input("Enter Meeting ID :")
 		
 		cancel(employee_id, meeting_id) 

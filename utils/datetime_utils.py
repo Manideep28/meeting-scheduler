@@ -1,21 +1,7 @@
-import datetime
-
-class Operations :
+import datetime 
+class datetimeUtils:
 	def __init__(self) :
-		pass
-
-	def get_room(unavailable_rooms,max_rooms) :
-		"""Returns the Available room"""
-
-		for room in range(1,max_rooms+1) :
-			if room not in unavailable_rooms :
-				return room 
-
-	def is_interval_overlap(mst,met,start_time,end_time) :
-		"""Checks if the current time overlaps with other"""
-		if start_time <= mst <= end_time or start_time <= met <= end_time :
-			return True 
-		return False 
+		pass 
 
 	def get_date() :
 		"""Gets Date from the user"""
@@ -58,19 +44,3 @@ class Operations :
 			print("Invalid Time Frame - Cannot book a meeting of more than 3 hrs duration.")
 			return False 
 		return True 
-
-	def get_employee() :
-		while True :
-			try :
-				employee_id = int(input("Enter Employee ID :")) 
-				return employee_id
-			except Exception as e:
-				print("Invalid Employee ID")
-
-	def get_option() :
-		while True :
-			try :
-				option = int(input("Enter your input :")) 
-				return option
-			except :
-				print("Choose a valid option ")
